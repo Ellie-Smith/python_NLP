@@ -1,7 +1,7 @@
 #coding=utf-8
 '''
 create on 2017 3-14
-@auther: 温启帆
+@auther: Ellie
 '''
 
 class csegment:
