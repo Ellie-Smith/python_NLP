@@ -4,16 +4,19 @@ create on 2017 3-14
 @auther: Ellie
 '''
 
+
 class csegment:
 
     def __init__(self,maxlen):
         self.maxLen = maxlen*3
         self.dictionary = self.loadDict()
 
-    def getMaxlen(self):
+    @property
+    def maxLen(self):
         return self.maxLen
-    def setMaxLen(self,maxLen):
-        self.maxLen = maxLen*3
+    @maxLen.setter
+    def maxLen(self,maxLen):
+        self.maxLen = maxLen
 
     def loadDict(self):
         f=open('chineseDict.txt','r')
@@ -38,7 +41,7 @@ class csegment:
                 currlen -= 3
                 continue
             word = sentence[index:index+currlen]
-            if word in self.dictionary.keys():
+            if word in self.dictionary:
                 result += word+'\\'
                 index += currlen
                 currlen = self.maxLen
@@ -46,7 +49,6 @@ class csegment:
                 if currlen > 3:
                     currlen -= 3
                 else:
-
                     result += "<!未收录该子串__"+ word +">\\"
                     index += currlen
                     currlen = self.maxLen
@@ -66,7 +68,7 @@ class csegment:
                 currlen -= 3
                 continue
             word = sentence[index-currlen:index]
-            if word in self.dictionary.keys():
+            if word in self.dictionary:
                 result = word+'\\'+ result
                 index -= currlen
                 currlen = self.maxLen
@@ -86,6 +88,8 @@ class csegment:
 
 if __name__ == '__main__':
     seg = csegment(3)
-    # seg.setMaxLen(1)
+    print seg.MMsegment('结合成分子时')
+    print seg.RMMsegment('结合成分子时')
+    seg.maxLen = 3
     print seg.MMsegment('结合成分子时')
     print seg.RMMsegment('结合成分子时')
